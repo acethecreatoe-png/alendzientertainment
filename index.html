@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALENDZI Entertainment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #111111;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    color: #e8e0d0;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  #main-wrapper { max-width: 960px; margin: 0 auto; }
+
+  /* HEADER */
+  #header { background: #1a1a1a; border-bottom: 4px solid #c8a040; border-top: 8px solid #c8a040; }
+
+  #header-top {
+    background: #c8a040;
+    padding: 4px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #111;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  #logo-area { display: flex; align-items: center; gap: 20px; padding: 16px 20px; }
+
+  #logo-box {
+    width: 90px; height: 90px;
+    background: #c8a040;
+    border: 3px solid #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  #logo-box span:first-child {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px; font-weight: 700;
+    color: #111; line-height: 1; letter-spacing: -1px;
+  }
+
+  #logo-box span:last-child {
+    font-size: 8px; color: #111; text-align: center;
+    font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+
+  #header-text h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px; font-weight: 700;
+    color: #c8a040; letter-spacing: 3px; text-transform: uppercase; line-height: 1;
+  }
+
+  #header-text p { font-size: 11px; color: #888; letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+  #header-text .tagline { font-size: 12px; color: #e8e0d0; margin-top: 6px; font-style: italic; }
+
+  /* TICKER */
+  #ticker-wrap { background: #c8a040; overflow: hidden; padding: 3px 0; border-top: 2px solid #a07820; }
+  #ticker {
+    display: inline-block; white-space: nowrap;
+    animation: ticker 30s linear infinite;
+    font-size: 11px; color: #111; font-weight: bold; letter-spacing: 1px;
+  }
+  @keyframes ticker { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+  /* NAV */
+  nav { background: #222; border-bottom: 3px solid #444; padding: 0 20px; display: flex; }
+  nav a {
+    display: inline-block; padding: 10px 18px;
+    color: #e8e0d0; text-decoration: none;
+    font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
+    border-right: 1px solid #444;
+    transition: background 0.1s, color 0.1s;
+  }
+  nav a:hover, nav a.active { background: #c8a040; color: #111; }
+  nav a:first-child { border-left: 1px solid #444; }
+
+  /* LAYOUT */
+  #content-area { display: table; width: 100%; }
+
+  #main-content {
+    display: table-cell; width: 660px;
+    vertical-align: top; padding: 16px;
+    border-right: 3px solid #333;
+  }
+
+  #sidebar {
+    display: table-cell; width: 290px;
+    vertical-align: top; padding: 16px;
+    background: #161616;
+  }
+
+  /* BOXES */
+  .box { border: 2px solid #444; margin-bottom: 14px; background: #1a1a1a; }
+
+  .box-header {
+    background: #2a2a2a; border-bottom: 2px solid #c8a040;
+    padding: 6px 10px;
+    font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #c8a040;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .box-header::before { content: '▶'; font-size: 9px; }
+  .box-content { padding: 12px; }
+
+  /* FEATURED ALBUM */
+  #featured-album { border: 2px solid #c8a040; margin-bottom: 14px; background: #1a1a1a; }
+  #featured-album .box-header { background: #c8a040; color: #111; border-bottom: 2px solid #a07820; }
+  #featured-album .box-header::before { color: #111; }
+
+  .album-inner { padding: 12px; display: flex; gap: 12px; align-items: flex-start; }
+
+  .album-art {
+    width: 100px; height: 100px;
+    border: 2px solid #555; flex-shrink: 0; overflow: hidden;
+  }
+  .album-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .album-info h3 { font-family: 'Oswald', sans-serif; font-size: 18px; color: #fff; letter-spacing: 1px; }
+  .album-info .artist { font-size: 11px; color: #c8a040; margin: 3px 0 6px; font-weight: bold; }
+  .album-meta { font-size: 10px; color: #666; margin-bottom: 8px; line-height: 1.9; }
+  .album-meta span { color: #999; }
+  .album-info p { font-size: 11px; color: #aaa; line-height: 1.6; margin-bottom: 8px; }
+
+  .platform-links { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .plat-btn {
+    display: inline-block;
+    color: #fff; text-decoration: none;
+    font-size: 10px; font-weight: bold;
+    padding: 4px 10px; letter-spacing: 1px; text-transform: uppercase;
+    font-family: 'Share Tech Mono', monospace;
+    transition: opacity 0.1s;
+    border: 2px solid;
+  }
+  .plat-btn:hover { opacity: 0.8; }
+  .plat-btn.spotify { background: #1DB954; border-color: #17a349; }
+  .plat-btn.soundcloud { background: #ff5500; border-color: #cc4400; }
+  .plat-btn.bandcamp { background: #1da0c3; border-color: #1686a3; }
+
+  /* NEWS */
+  .news-item { padding: 10px 0; border-bottom: 1px dashed #333; }
+  .news-item:last-child { border-bottom: none; }
+  .news-date { font-size: 10px; color: #c8a040; letter-spacing: 1px; font-weight: bold; margin-bottom: 4px; }
+  .news-item h3 { font-family: 'Oswald', sans-serif; font-size: 14px; color: #fff; margin-bottom: 5px; }
+  .news-item p { font-size: 11px; color: #aaa; line-height: 1.6; }
+  .news-item p a { color: #c8a040; text-decoration: underline; }
+
+  /* RELEASES GRID */
+  .releases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .release-card {
+    border: 2px solid #333;
+    background: #141414;
+    overflow: hidden;
+  }
+
+  .release-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #333;
+  }
+
+  .release-card-info {
+    padding: 6px 8px;
+  }
+
+  .release-card-info h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    color: #e8e0d0;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .release-card-info .rc-artist { font-size: 9px; color: #c8a040; font-weight: bold; }
+  .release-card-info .rc-date { font-size: 9px; color: #666; }
+  .release-card-info .rc-type { font-size: 8px; color: #555; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* HISTORY */
+  .history-item {
+    font-size: 10px; color: #888;
+    padding: 5px 0; border-bottom: 1px solid #222;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-date { color: #c8a040; flex-shrink: 0; font-weight: bold; min-width: 70px; }
+
+  /* SIDEBAR BOXES */
+  .sidebar-box { border: 2px solid #333; margin-bottom: 12px; background: #1a1a1a; }
+  .sidebar-header {
+    background: #222; border-bottom: 2px solid #555;
+    padding: 5px 8px;
+    font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #c8a040;
+  }
+  .sidebar-content { padding: 10px; }
+
+  .roster-item {
+    padding: 7px 0; border-bottom: 1px solid #2a2a2a;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .roster-item:last-child { border-bottom: none; }
+  .roster-num { font-size: 10px; color: #c8a040; font-weight: bold; width: 18px; flex-shrink: 0; }
+  .roster-item h4 { font-family: 'Oswald', sans-serif; font-size: 13px; color: #e8e0d0; }
+  .roster-item span { font-size: 9px; color: #777; letter-spacing: 0.5px; }
+
+  .contact-info { font-size: 11px; color: #aaa; line-height: 2; }
+  .contact-info a { color: #c8a040; text-decoration: none; }
+  .contact-info a:hover { text-decoration: underline; }
+  .contact-label { color: #666; font-size: 10px; display: block; }
+
+  .demo-rules { font-size: 10px; color: #999; line-height: 1.8; }
+  .demo-rules li { list-style: none; padding: 2px 0 2px 14px; position: relative; }
+  .demo-rules li::before { content: '→'; position: absolute; left: 0; color: #c8a040; font-size: 9px; }
+
+  .stat-row { display: flex; justify-content: space-between; font-size: 10px; padding: 3px 0; border-bottom: 1px solid #222; color: #888; }
+  .stat-row span:last-child { color: #c8a040; font-weight: bold; }
+
+  /* FOOTER */
+  footer {
+    background: #111; border-top: 4px solid #c8a040;
+    padding: 12px 20px; text-align: center;
+    font-size: 10px; color: #555; letter-spacing: 1px;
+  }
+  footer a { color: #c8a040; text-decoration: none; }
+
+  /* UTILS */
+  .blink { animation: blink 1.1s step-end infinite; color: #c8a040; font-weight: bold; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .new-badge {
+    background: #c8a040; color: #111;
+    font-size: 9px; font-weight: bold;
+    padding: 1px 5px; letter-spacing: 1px; text-transform: uppercase; margin-left: 6px;
+  }
+
+  .divider { border: none; border-top: 1px dashed #333; margin: 10px 0; }
+
+  .tag {
+    display: inline-block;
+    font-size: 8px; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 1px 5px; margin-left: 4px; vertical-align: middle;
+    border: 1px solid;
+  }
+  .tag-sc { color: #ff5500; border-color: #ff5500; }
+  .tag-bc { color: #1da0c3; border-color: #1da0c3; }
+  .tag-sp { color: #1DB954; border-color: #1DB954; }
+  .tag-mdjk { color: #aaa; border-color: #555; }
+</style>
+</head>
+<body>
+
+<div id="main-wrapper">
+
+  <!-- HEADER -->
+  <div id="header">
+    <div id="header-top">
+      <span>ALENDZI ENTERTAINMENT © 2025</span>
+      <span>TUZLA, BOSNA I HERCEGOVINA</span>
+    </div>
+    <div id="logo-area">
+      <div id="logo-box">
+        <span>ALZ</span>
+        <span>ENT.</span>
+      </div>
+      <div id="header-text">
+        <h1>ALENDZI Entertainment</h1>
+        <p>Independent Rap Label &nbsp;|&nbsp; Est. 2024 &nbsp;|&nbsp; Bosnia</p>
+        <p class="tagline">"Real music. No industry bullsh*t."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div id="ticker-wrap">
+    <span id="ticker">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      ★ DIEMONDZ SINGLE BY A.L.E.N — OUT NOW ★
+      &nbsp;&nbsp;&nbsp;
+      /// N.T.P. &nbsp;·&nbsp; A.L.E.N &nbsp;·&nbsp; LUKERI &nbsp;·&nbsp; CRVENO STAKLO ///
+      &nbsp;&nbsp;&nbsp;
+      ★ ASCEND TO HEAVEN — A.L.E.N — NOW ON BANDCAMP &amp; SOUNDCLOUD ★
+      &nbsp;&nbsp;&nbsp;
+      /// BEATS N JUNK EP — STREAMING ON SPOTIFY ///
+      &nbsp;&nbsp;&nbsp;
+      ★ DEMO SUBMISSIONS OPEN — CHECK THE SIDEBAR FOR RULES ★
+      &nbsp;&nbsp;&nbsp;
+      /// ALENDZI ENT. — INDEPENDENT. ALWAYS. ///
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="active">HOME</a>
+    <a href="/roster">ROSTER</a>
+    <a href="/releases">RELEASES</a>
+    <a href="/news">NEWS</a>
+    <a href="/demos">DEMOS</a>
+    <a href="/contact">CONTACT</a>
+  </nav>
+
+  <!-- CONTENT -->
+  <div id="content-area">
+
+    <div id="main-content">
+
+      <!-- FEATURED RELEASE -->
+      <div id="featured-album">
+        <div class="box-header">LATEST RELEASE <span class="new-badge blink">NEW</span></div>
+        <div class="album-inner">
+          <div class="album-art">
+            <img src="https://f4.bcbits.com/img/a3019004979_10.jpg" alt="Diemondz">
+          </div>
+          <div class="album-info">
+            <h3>DIEMONDZ</h3>
+            <div class="artist">A.L.E.N &nbsp;·&nbsp; ALENDZI ENT.</div>
+            <div class="album-meta">
+              RELEASED: <span>14.07.2025</span> &nbsp;|&nbsp; TYPE: <span>Single</span><br>
+              LABEL: <span>ALENDZI Entertainment</span>
+            </div>
+            <p>A new single from A.L.E.N. New project incoming.</p>
+            <div class="platform-links">
+              <a href="#" class="plat-btn bandcamp">▶ BANDCAMP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL RELEASES -->
+      <div class="box">
+        <div class="box-header">DISCOGRAPHY</div>
+        <div class="releases-grid">
+
+          <div class="release-card">
+            <img src="https://f4.bcbits.com/img/a3019004979_10.jpg" alt="Diemondz">
+            <div class="release-card-info">
+              <h4>Diemondz</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">14.07.2025</div>
+              <div class="rc-type">Single <span class="tag tag-bc">BC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://f4.bcbits.com/img/a1465335452_10.jpg" alt="Beats &amp; Junk Enhanced">
+            <div class="release-card-info">
+              <h4>Beats &amp; Junk Enhanced</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">29.07.2025</div>
+              <div class="rc-type">Beat Tape <span class="tag tag-bc">BC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://f4.bcbits.com/img/a0578545048_10.jpg" alt="Ascend to Heaven">
+            <div class="release-card-info">
+              <h4>Ascend to Heaven</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">21.06.2025</div>
+              <div class="rc-type">EP <span class="tag tag-sc">SC</span> <span class="tag tag-bc">BC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://i1.sndcdn.com/artworks-xUHtOT0Ja8WAIB4A-41Fupw-t500x500.png" alt="The Tree of Wizzdom">
+            <div class="release-card-info">
+              <h4>The Tree of Wizzdom</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">11.06.2025</div>
+              <div class="rc-type">Compilation <span class="tag tag-sc">SC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://i1.sndcdn.com/artworks-rl3pTE1MtOF9do6H-Fag8sQ-t500x500.png" alt="I Thought We Were Friends">
+            <div class="release-card-info">
+              <h4>I Thought We Were Friends</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">31.05.2025</div>
+              <div class="rc-type">Single <span class="tag tag-sc">SC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://i1.sndcdn.com/artworks-w5P2ZqRyIcJOjzEq-Vm78Nw-t500x500.jpg" alt="MusicDJ Beats from 2020">
+            <div class="release-card-info">
+              <h4>MusicDJ Beats from 2020</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">22.06.2025</div>
+              <div class="rc-type">Mixtape <span class="tag tag-mdjk">MUSICDJ</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://f4.bcbits.com/img/a3296143278_10.jpg" alt="Old Demos">
+            <div class="release-card-info">
+              <h4>Old Demos</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">2025</div>
+              <div class="rc-type">Compilation <span class="tag tag-bc">BC</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://i1.sndcdn.com/artworks-zizKjRHJtdJ1paWt-qnBqCw-t500x500.jpg" alt="Beats N Junk EP">
+            <div class="release-card-info">
+              <h4>Beats N Junk EP</h4>
+              <div class="rc-artist">A.L.E.N</div>
+              <div class="rc-date">01.01.2025</div>
+              <div class="rc-type">Beat Tape <span class="tag tag-sc">SC</span> <span class="tag tag-sp">SP</span></div>
+            </div>
+          </div>
+
+          <div class="release-card">
+            <img src="https://t2.genius.com/unsafe/883x0/https%3A%2F%2Fimages.genius.com%2Fa02eefbdd1671eded7172a8bbe7d8ab5.425x425x1.png" alt="Welcome to N.T.P.">
+            <div class="release-card-info">
+              <h4>Welcome to N.T.P.</h4>
+              <div class="rc-artist">N.T.P.</div>
+              <div class="rc-date">29.01.2025</div>
+              <div class="rc-type">Mixtape</div>
+            </div>
+          </div>
+
+        </div>
+        <!-- N.T.P. Tri Marke not listed in grid separately, covered in news -->
+      </div>
+
+      <!-- NEWS -->
+      <div class="box">
+        <div class="box-header">NEWS — CHRONOLOGICAL</div>
+        <div class="box-content">
+
+          <div class="news-item">
+            <div class="news-date">// 29.07.2025</div>
+            <h3>A.L.E.N — Beats &amp; Junk Enhanced <span class="tag tag-bc" style="font-size:9px;">BC</span></h3>
+            <p>An enhanced version of the original Beats N Junk EP, released on Bandcamp.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 14.07.2025</div>
+            <h3>A.L.E.N — Diemondz Single Out Now <span class="new-badge">NEW</span></h3>
+            <p>New single from A.L.E.N. This one teases a new project in the works. Available now on Bandcamp.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 14.07.2025</div>
+            <h3>Beats N Junk EP — Now on Spotify</h3>
+            <p>A.L.E.N's debut beat tape is now streaming on Spotify. Originally dropped on SoundCloud on 01.01.2025, now available everywhere. <a href="https://open.spotify.com/album/5LvpoTLqnt3F4Cw9o1Leqd" target="_blank">→ Listen on Spotify</a></p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 22.06.2025</div>
+            <h3>A.L.E.N — MusicDJ Beats from 2020 <span class="tag tag-mdjk" style="font-size:9px;">MUSICDJ</span></h3>
+            <p>A mixtape of beats A.L.E.N made back in 2020 using MusicDJ. A look back at where it all started.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 21.06.2025</div>
+            <h3>A.L.E.N — Ascend to Heaven <span class="tag tag-sc" style="font-size:9px;">SC</span> <span class="tag tag-bc" style="font-size:9px;">BC</span></h3>
+            <p>New EP from A.L.E.N, out on SoundCloud and Bandcamp. Soul sample heavy — a big shift from Beats N Junk. Deeper, more refined sound.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 11.06.2025</div>
+            <h3>A.L.E.N — The Tree of Wizzdom <span class="tag tag-sc" style="font-size:9px;">SC</span></h3>
+            <p>A comprehensive compilation of all of A.L.E.N's production work and features, posted to SoundCloud.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 31.05.2025</div>
+            <h3>A.L.E.N — I Thought We Were Friends <span class="tag tag-sc" style="font-size:9px;">SC</span></h3>
+            <p>New single on SoundCloud, sampling Lauryn Hill's X Factor. Also available as a beat on the platform.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 29.01.2025</div>
+            <h3>N.T.P. — Welcome to N.T.P. Mixtape</h3>
+            <p>N.T.P. drops their debut mixtape, introducing the band to the world. Officially the first N.T.P. full project under ALENDZI Entertainment.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 24.01.2025</div>
+            <h3>N.T.P. — Tri Marke Single</h3>
+            <p>N.T.P. drops their first single, Tri Marke. Sets the stage for the mixtape a few days later.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 01.01.2025</div>
+            <h3>A.L.E.N — Beats N Junk EP on SoundCloud</h3>
+            <p>The label's first official release. A.L.E.N's debut beat tape drops on SoundCloud. Raw instrumentals, no filler — pure production from Tuzla.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 12.01.2024</div>
+            <h3>We Are Now ALENDZI Entertainment</h3>
+            <p>The label's final name is locked in. After Da House Records, Green Records, and ALENDZI Studios — this is it.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 11.2024</div>
+            <h3>ALENDZI Studios Era — Roster Expands</h3>
+            <p>Under the ALENDZI Studios name, N.T.P. and MC Lukas (later Lukeri) join the label. BeatzBlaze renames to Vertex. K99 renames to A.L.E.N. Roster: N.T.P., A.L.E.N, Vertex, MC Lukas.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 22.11.2024</div>
+            <h3>Green Records — Name Change</h3>
+            <p>Da House Records becomes Green Records. The search for the right identity continues.</p>
+          </div>
+
+          <div class="news-item">
+            <div class="news-date">// 11.08.2024</div>
+            <h3>Label Founded — Da House Records</h3>
+            <p>It starts here. The label launches in Tuzla under the name Da House Records, with K99 and BeatzBlaze as the founding artists.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LABEL HISTORY -->
+      <div class="box">
+        <div class="box-header">LABEL HISTORY</div>
+        <div class="box-content">
+          <div class="history-item">
+            <span class="history-date">11.08.2024</span>
+            <span>Founded as <strong style="color:#e8e0d0;">Da House Records</strong> in Tuzla, BiH — K99 &amp; BeatzBlaze</span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">22.11.2024</span>
+            <span>Rebranded to <strong style="color:#e8e0d0;">Green Records</strong></span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">11.2024</span>
+            <span><strong style="color:#e8e0d0;">ALENDZI Studios</strong> — N.T.P. &amp; MC Lukas join; BeatzBlaze → Vertex; K99 → A.L.E.N</span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">12.01.2024</span>
+            <span>Final name: <strong style="color:#c8a040;">ALENDZI Entertainment</strong> — Roster: N.T.P., A.L.E.N, Vertex, MC Lukas</span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">01.01.2025</span>
+            <span>First release: <strong style="color:#e8e0d0;">Beats N Junk EP</strong> by A.L.E.N on SoundCloud</span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">07.09.2025</span>
+            <span><strong style="color:#e8e0d0;">Vertex</strong> leaves the label</span>
+          </div>
+          <div class="history-item">
+            <span class="history-date">01.2026</span>
+            <span><strong style="color:#e8e0d0;">Crveno Staklo</strong> (guitarist) joins the label</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+
+      <!-- ROSTER -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// ROSTER</div>
+        <div class="sidebar-content">
+          <div class="roster-item">
+            <div class="roster-num">01.</div>
+            <div><h4>N.T.P.</h4><span>BAND</span></div>
+          </div>
+          <div class="roster-item">
+            <div class="roster-num">02.</div>
+            <div><h4>A.L.E.N</h4><span>PRODUCER / RAP</span></div>
+          </div>
+          <div class="roster-item">
+            <div class="roster-num">03.</div>
+            <div><h4>LUKERI</h4><span>RAP</span></div>
+          </div>
+          <div class="roster-item">
+            <div class="roster-num">04.</div>
+            <div><h4>CRVENO STAKLO</h4><span>GUITARIST</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT RELEASES SIDEBAR -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// RECENT RELEASES</div>
+        <div class="sidebar-content">
+
+          <div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #222;">
+            <img src="https://f4.bcbits.com/img/a3019004979_10.jpg" style="width:40px;height:40px;object-fit:cover;border:1px solid #444;flex-shrink:0;" alt="Diemondz">
+            <div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;color:#e8e0d0;">Diemondz</div>
+              <div style="font-size:9px;color:#c8a040;">A.L.E.N · 14.07.2025</div>
+              <div style="font-size:8px;color:#666;">Single</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #222;">
+            <img src="https://f4.bcbits.com/img/a1465335452_10.jpg" style="width:40px;height:40px;object-fit:cover;border:1px solid #444;flex-shrink:0;" alt="B&J Enhanced">
+            <div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;color:#e8e0d0;">Beats &amp; Junk Enhanced</div>
+              <div style="font-size:9px;color:#c8a040;">A.L.E.N · 29.07.2025</div>
+              <div style="font-size:8px;color:#666;">Beat Tape</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #222;">
+            <img src="https://f4.bcbits.com/img/a0578545048_10.jpg" style="width:40px;height:40px;object-fit:cover;border:1px solid #444;flex-shrink:0;" alt="Ascend to Heaven">
+            <div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;color:#e8e0d0;">Ascend to Heaven</div>
+              <div style="font-size:9px;color:#c8a040;">A.L.E.N · 21.06.2025</div>
+              <div style="font-size:8px;color:#666;">EP</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;padding:5px 0;">
+            <img src="https://i1.sndcdn.com/artworks-zizKjRHJtdJ1paWt-qnBqCw-t500x500.jpg" style="width:40px;height:40px;object-fit:cover;border:1px solid #444;flex-shrink:0;" alt="Beats N Junk EP">
+            <div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;color:#e8e0d0;">Beats N Junk EP</div>
+              <div style="font-size:9px;color:#c8a040;">A.L.E.N · 01.01.2025</div>
+              <div style="font-size:8px;color:#666;">Beat Tape</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DEMO SUBMISSION -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// SUBMIT DEMO</div>
+        <div class="sidebar-content">
+          <p style="font-size:10px;color:#aaa;margin-bottom:8px;line-height:1.7;">Want to get on? Here's how:</p>
+          <ul class="demo-rules">
+            <li>Standard quality audio only</li>
+            <li>Min. length: <strong style="color:#e8e0d0;">1:30</strong></li>
+            <li>Original material — no biting</li>
+            <li>Send to our email below</li>
+            <li>We listen to everything</li>
+            <li>No reply = not this time</li>
+          </ul>
+          <hr class="divider">
+          <p style="font-size:10px;color:#777;line-height:1.6;">Subject: <span style="color:#c8a040;">DEMO – [Your Name]</span></p>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// CONTACT</div>
+        <div class="sidebar-content">
+          <div class="contact-info">
+            <span class="contact-label">EMAIL</span>
+            <a href="mailto:alendzi@protonmail.com">alendzi@protonmail.com</a>
+            <span class="contact-label" style="margin-top:6px;display:block;">LOCATION</span>
+            Tuzla, Bosnia &amp; Herzegovina
+            <span class="contact-label" style="margin-top:6px;display:block;">FOUNDED</span>
+            11.08.2024
+          </div>
+        </div>
+      </div>
+
+      <!-- LABEL STATS -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// LABEL STATS</div>
+        <div class="sidebar-content">
+          <div class="stat-row"><span>Artists (current)</span><span>4</span></div>
+          <div class="stat-row"><span>Total Releases</span><span>11</span></div>
+          <div class="stat-row"><span>A.L.E.N Releases</span><span>9</span></div>
+          <div class="stat-row"><span>N.T.P. Releases</span><span>2</span></div>
+          <div class="stat-row"><span>Name Changes</span><span>3</span></div>
+          <div class="stat-row"><span>Founded</span><span>11.08.2024</span></div>
+          <div class="stat-row"><span>Current Name Since</span><span>12.01.2024</span></div>
+          <div class="stat-row"><span>Based In</span><span>Tuzla, BiH</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-content" style="text-align:center;padding:8px;">
+          <div style="font-size:9px;color:#555;letter-spacing:1px;line-height:2;">
+            ALENDZI ENTERTAINMENT<br>
+            TUZLA, BOSNA I HERCEGOVINA<br>
+            <span style="color:#444;">————————————————</span><br>
+            <span class="blink">★</span> INDEPENDENT. ALWAYS. <span class="blink">★</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /content-area -->
+
+  <footer>
+    <div style="margin-bottom:6px;">
+      ALENDZI ENTERTAINMENT &nbsp;|&nbsp; TUZLA, BOSNA I HERCEGOVINA &nbsp;|&nbsp; EST. 11.08.2024
+    </div>
+    <div>
+      <a href="mailto:alendzi@protonmail.com">alendzi@protonmail.com</a>
+      &nbsp;&nbsp;—&nbsp;&nbsp;
+      N.T.P. &nbsp;·&nbsp; A.L.E.N &nbsp;·&nbsp; LUKERI &nbsp;·&nbsp; CRVENO STAKLO
+    </div>
+    <div style="margin-top:6px;color:#333;">★ INDEPENDENT. ALWAYS. ★</div>
+  </footer>
+
+</div><!-- /main-wrapper -->
+
+</body>
+</html>
