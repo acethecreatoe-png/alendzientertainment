@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALENDZI Entertainment — Roster</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #111111;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    color: #e8e0d0;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  #main-wrapper { max-width: 960px; margin: 0 auto; }
+
+  /* HEADER */
+  #header { background: #1a1a1a; border-bottom: 4px solid #c8a040; border-top: 8px solid #c8a040; }
+
+  #header-top {
+    background: #c8a040;
+    padding: 4px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: #111; font-weight: bold; letter-spacing: 1px;
+  }
+
+  #logo-area { display: flex; align-items: center; gap: 20px; padding: 16px 20px; }
+
+  #logo-box {
+    width: 90px; height: 90px;
+    background: #c8a040; border: 3px solid #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  #logo-box span:first-child {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px; font-weight: 700; color: #111; line-height: 1; letter-spacing: -1px;
+  }
+  #logo-box span:last-child {
+    font-size: 8px; color: #111; text-align: center; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+
+  #header-text h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px; font-weight: 700; color: #c8a040; letter-spacing: 3px; text-transform: uppercase; line-height: 1;
+  }
+  #header-text p { font-size: 11px; color: #888; letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+  #header-text .tagline { font-size: 12px; color: #e8e0d0; margin-top: 6px; font-style: italic; }
+
+  /* TICKER */
+  #ticker-wrap { background: #c8a040; overflow: hidden; padding: 3px 0; border-top: 2px solid #a07820; }
+  #ticker {
+    display: inline-block; white-space: nowrap;
+    animation: ticker 28s linear infinite;
+    font-size: 11px; color: #111; font-weight: bold; letter-spacing: 1px;
+  }
+  @keyframes ticker { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+  /* NAV */
+  nav { background: #222; border-bottom: 3px solid #444; padding: 0 20px; display: flex; }
+  nav a {
+    display: inline-block; padding: 10px 18px;
+    color: #e8e0d0; text-decoration: none;
+    font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
+    border-right: 1px solid #444;
+    transition: background 0.1s, color 0.1s;
+  }
+  nav a:hover { background: #c8a040; color: #111; }
+  nav a.active { background: #c8a040; color: #111; }
+  nav a:first-child { border-left: 1px solid #444; }
+
+  /* LAYOUT */
+  #content-area { display: table; width: 100%; }
+  #main-content {
+    display: table-cell; width: 660px;
+    vertical-align: top; padding: 16px;
+    border-right: 3px solid #333;
+  }
+  #sidebar {
+    display: table-cell; width: 290px;
+    vertical-align: top; padding: 16px;
+    background: #161616;
+  }
+
+  /* PAGE TITLE BAR */
+  #page-title-bar {
+    border: 2px solid #c8a040; background: #1a1a1a;
+    margin-bottom: 16px; padding: 10px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  #page-title-bar h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px; font-weight: 700; color: #c8a040; letter-spacing: 3px; text-transform: uppercase;
+  }
+  #page-title-bar span { font-size: 10px; color: #666; letter-spacing: 1px; }
+
+  /* ARTIST CARD */
+  .artist-card {
+    border: 2px solid #444;
+    background: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .artist-card-header {
+    background: #2a2a2a;
+    border-bottom: 2px solid #c8a040;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .artist-num-block {
+    background: #c8a040;
+    width: 48px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px; font-weight: 700; color: #111;
+    border-right: 2px solid #a07820;
+  }
+
+  .artist-title-block {
+    padding: 10px 14px;
+    flex: 1;
+  }
+
+  .artist-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: #fff; letter-spacing: 2px; text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .artist-role {
+    font-size: 10px; color: #c8a040;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 4px; font-weight: bold;
+  }
+
+  .artist-body {
+    padding: 14px 16px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* avatar placeholder */
+  .artist-avatar {
+    width: 80px; height: 80px;
+    background: #222;
+    border: 2px solid #444;
+    flex-shrink: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .artist-avatar-letter {
+    font-family: 'Oswald', sans-serif;
+    font-size: 34px; font-weight: 700;
+    color: #c8a040;
+    opacity: 0.4;
+  }
+
+  /* NTP gets a group badge */
+  .avatar-ntp { background: linear-gradient(135deg, #1a1a1a 0%, #222 100%); }
+  .avatar-alen { background: linear-gradient(135deg, #1a1a1a 0%, #1e1a10 100%); }
+  .avatar-lukeri { background: linear-gradient(135deg, #1a1a1a 0%, #111a1a 100%); }
+  .avatar-cs { background: linear-gradient(135deg, #1a1a1a 0%, #1a1118 100%); }
+
+  .artist-details { flex: 1; }
+
+  .artist-bio {
+    font-size: 11px; color: #aaa; line-height: 1.8; margin-bottom: 10px;
+  }
+
+  .artist-stats-row {
+    display: flex; gap: 0; border: 1px solid #333; margin-bottom: 10px;
+  }
+
+  .artist-stat {
+    flex: 1;
+    padding: 6px 8px;
+    border-right: 1px solid #333;
+    text-align: center;
+  }
+  .artist-stat:last-child { border-right: none; }
+
+  .artist-stat-label {
+    font-size: 8px; color: #555; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 2px;
+  }
+  .artist-stat-value {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px; color: #c8a040; font-weight: 700;
+  }
+
+  /* member list for NTP */
+  .member-list {
+    border: 1px solid #333;
+    background: #141414;
+    margin-bottom: 10px;
+  }
+  .member-list-header {
+    padding: 4px 8px;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    color: #555; border-bottom: 1px solid #2a2a2a;
+    background: #1a1a1a;
+  }
+  .member-row {
+    padding: 5px 8px;
+    border-bottom: 1px solid #1e1e1e;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .member-row:last-child { border-bottom: none; }
+  .member-name { font-size: 11px; color: #e8e0d0; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+  .member-role-tag { font-size: 9px; color: #888; }
+
+  /* releases mini list */
+  .release-mini {
+    display: flex; gap: 8px; padding: 5px 0;
+    border-bottom: 1px solid #1e1e1e;
+    align-items: center;
+  }
+  .release-mini:last-child { border-bottom: none; }
+  .release-mini img {
+    width: 32px; height: 32px; object-fit: cover;
+    border: 1px solid #333; flex-shrink: 0;
+  }
+  .release-mini-info { font-size: 10px; }
+  .release-mini-title { color: #e8e0d0; font-family: 'Oswald', sans-serif; font-size: 11px; }
+  .release-mini-date { color: #666; font-size: 9px; }
+
+  .tag {
+    display: inline-block;
+    font-size: 8px; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 1px 5px; border: 1px solid; vertical-align: middle; margin-left: 3px;
+  }
+  .tag-sc { color: #ff5500; border-color: #ff5500; }
+  .tag-bc { color: #1da0c3; border-color: #1da0c3; }
+  .tag-sp { color: #1DB954; border-color: #1DB954; }
+  .tag-yt { color: #ff0000; border-color: #ff0000; }
+
+  .artist-card-footer {
+    border-top: 1px dashed #2a2a2a;
+    padding: 7px 14px;
+    background: #161616;
+    font-size: 10px; color: #555;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .artist-card-footer a { color: #c8a040; text-decoration: none; }
+  .artist-card-footer a:hover { text-decoration: underline; }
+
+  /* SIDEBAR BOXES */
+  .sidebar-box { border: 2px solid #333; margin-bottom: 12px; background: #1a1a1a; }
+  .sidebar-header {
+    background: #222; border-bottom: 2px solid #555;
+    padding: 5px 8px;
+    font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #c8a040;
+  }
+  .sidebar-content { padding: 10px; }
+
+  .stat-row { display: flex; justify-content: space-between; font-size: 10px; padding: 3px 0; border-bottom: 1px solid #222; color: #888; }
+  .stat-row span:last-child { color: #c8a040; font-weight: bold; }
+
+  .sidebar-nav-link {
+    display: block; padding: 6px 0;
+    border-bottom: 1px solid #222;
+    font-size: 11px; color: #e8e0d0; text-decoration: none;
+    font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .sidebar-nav-link:hover { color: #c8a040; }
+  .sidebar-nav-link:last-child { border-bottom: none; }
+  .sidebar-nav-link .arr { color: #555; font-size: 10px; }
+
+  /* FOOTER */
+  footer {
+    background: #111; border-top: 4px solid #c8a040;
+    padding: 12px 20px; text-align: center;
+    font-size: 10px; color: #555; letter-spacing: 1px;
+  }
+  footer a { color: #c8a040; text-decoration: none; }
+
+  .blink { animation: blink 1.1s step-end infinite; color: #c8a040; font-weight: bold; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<div id="main-wrapper">
+
+  <!-- HEADER -->
+  <div id="header">
+    <div id="header-top">
+      <span>ALENDZI ENTERTAINMENT © 2025</span>
+      <span>TUZLA, BOSNA I HERCEGOVINA</span>
+    </div>
+    <div id="logo-area">
+      <div id="logo-box">
+        <span>ALZ</span>
+        <span>ENT.</span>
+      </div>
+      <div id="header-text">
+        <h1>ALENDZI Entertainment</h1>
+        <p>Independent Rap Label &nbsp;|&nbsp; Est. 2024 &nbsp;|&nbsp; Bosnia</p>
+        <p class="tagline">"Real music. No industry bullsh*t."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div id="ticker-wrap">
+    <span id="ticker">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      ★ N.T.P. &nbsp;·&nbsp; A.L.E.N &nbsp;·&nbsp; LUKERI &nbsp;·&nbsp; CRVENO STAKLO ★
+      &nbsp;&nbsp;&nbsp;
+      /// ALENDZI ENT. OFFICIAL ROSTER — TUZLA, BiH ///
+      &nbsp;&nbsp;&nbsp;
+      ★ DIEMONDZ — A.L.E.N — OUT NOW ★
+      &nbsp;&nbsp;&nbsp;
+      /// DRIVE BY SHOOTING — ACE G — COMING SOON ///
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/">HOME</a>
+    <a href="/roster" class="active">ROSTER</a>
+    <a href="/releases">RELEASES</a>
+    <a href="/news">NEWS</a>
+    <a href="/blog">BLOG</a>
+    <a href="/demos">DEMOS</a>
+    <a href="/contact">CONTACT</a>
+  </nav>
+
+  <!-- CONTENT -->
+  <div id="content-area">
+
+    <div id="main-content">
+
+      <div id="page-title-bar">
+        <h2>// ROSTER</h2>
+        <span>4 ARTISTS &nbsp;·&nbsp; TUZLA, BiH</span>
+      </div>
+
+      <!-- ===== N.T.P. ===== -->
+      <div class="artist-card">
+        <div class="artist-card-header">
+          <div class="artist-num-block">01</div>
+          <div class="artist-title-block">
+            <div class="artist-name">N.T.P.</div>
+            <div class="artist-role">Band</div>
+          </div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-avatar avatar-ntp">
+            <span class="artist-avatar-letter">NTP</span>
+          </div>
+          <div class="artist-details">
+            <p class="artist-bio">
+              N.T.P. is an ALENDZI Entertainment band based in Tuzla. One of the founding acts of the label, they dropped their debut mixtape <em>Welcome to N.T.P.</em> in January 2025.
+            </p>
+            <div class="artist-stats-row">
+              <div class="artist-stat">
+                <span class="artist-stat-label">Type</span>
+                <span class="artist-stat-value">Band</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Since</span>
+                <span class="artist-stat-value">2024</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Releases</span>
+                <span class="artist-stat-value">2</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Label</span>
+                <span class="artist-stat-value">ALENDZI</span>
+              </div>
+            </div>
+            <div class="member-list">
+              <div class="member-list-header">Members</div>
+              <div class="member-row">
+                <span class="member-name">A.L.E.N</span>
+                <span class="member-role-tag">RAP / PRODUCTION</span>
+              </div>
+              <div class="member-row">
+                <span class="member-name">Lukeri</span>
+                <span class="member-role-tag">RAP</span>
+              </div>
+            </div>
+            <div class="release-mini">
+              <img src="https://t2.genius.com/unsafe/883x0/https%3A%2F%2Fimages.genius.com%2Fa02eefbdd1671eded7172a8bbe7d8ab5.425x425x1.png" alt="Welcome to N.T.P.">
+              <div class="release-mini-info">
+                <div class="release-mini-title">Welcome to N.T.P. <span class="tag tag-yt">YT</span></div>
+                <div class="release-mini-date">29.01.2025 — Mixtape</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="artist-card-footer">
+          <span>ALENDZI Entertainment &nbsp;·&nbsp; Tuzla, BiH</span>
+          <a href="https://www.youtube.com/watch?v=sYPapDGqfgA&list=PLiTqKSor9LCrA6RSENDjY6zHbccsLzGuF" target="_blank">→ Welcome to N.T.P. on YouTube</a>
+        </div>
+      </div>
+
+      <!-- ===== A.L.E.N ===== -->
+      <div class="artist-card">
+        <div class="artist-card-header">
+          <div class="artist-num-block">02</div>
+          <div class="artist-title-block">
+            <div class="artist-name">A.L.E.N</div>
+            <div class="artist-role">Producer &nbsp;/&nbsp; Rapper</div>
+          </div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-avatar avatar-alen">
+            <span class="artist-avatar-letter">A</span>
+          </div>
+          <div class="artist-details">
+            <p class="artist-bio">
+              A.L.E.N is the founder, producer and rapper behind ALENDZI Entertainment. Also goes by Ace G on solo rap material. Started making beats in 2020 on MusicDJ on a Sony Ericsson, now working in FL Studio 21. Soul samples, raw instrumentals, no industry polish.
+            </p>
+            <div class="artist-stats-row">
+              <div class="artist-stat">
+                <span class="artist-stat-label">Type</span>
+                <span class="artist-stat-value">Solo</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Since</span>
+                <span class="artist-stat-value">2020</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Releases</span>
+                <span class="artist-stat-value">10</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">DAW</span>
+                <span class="artist-stat-value">FL 21</span>
+              </div>
+            </div>
+            <div class="release-mini">
+              <img src="https://f4.bcbits.com/img/a3019004979_10.jpg" alt="Diemondz">
+              <div class="release-mini-info">
+                <div class="release-mini-title">Diemondz <span class="tag tag-bc">BC</span> <span class="tag tag-sp">SP</span></div>
+                <div class="release-mini-date">14.07.2025 — Single</div>
+              </div>
+            </div>
+            <div class="release-mini">
+              <img src="https://f4.bcbits.com/img/a0578545048_10.jpg" alt="Ascend to Heaven">
+              <div class="release-mini-info">
+                <div class="release-mini-title">Ascend to Heaven <span class="tag tag-bc">BC</span> <span class="tag tag-sc">SC</span></div>
+                <div class="release-mini-date">21.06.2025 — EP</div>
+              </div>
+            </div>
+            <div class="release-mini">
+              <img src="https://i1.sndcdn.com/artworks-zizKjRHJtdJ1paWt-qnBqCw-t500x500.jpg" alt="Beats N Junk EP">
+              <div class="release-mini-info">
+                <div class="release-mini-title">Beats N Junk EP <span class="tag tag-sc">SC</span> <span class="tag tag-sp">SP</span></div>
+                <div class="release-mini-date">01.01.2025 — Beat Tape</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="artist-card-footer">
+          <span>Also known as Ace G &nbsp;·&nbsp; Solo EP: Drive By Shooting — Coming Soon</span>
+          <a href="https://alenntp.bandcamp.com" target="_blank">→ Bandcamp</a>
+        </div>
+      </div>
+
+      <!-- ===== LUKERI ===== -->
+      <div class="artist-card">
+        <div class="artist-card-header">
+          <div class="artist-num-block">03</div>
+          <div class="artist-title-block">
+            <div class="artist-name">Lukeri</div>
+            <div class="artist-role">Rapper</div>
+          </div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-avatar avatar-lukeri">
+            <span class="artist-avatar-letter">L</span>
+          </div>
+          <div class="artist-details">
+            <p class="artist-bio">
+              Lukeri is a rapper and member of N.T.P. Previously went by MC Lukas when he joined the label during the ALENDZI Studios era. One of the core voices in the N.T.P. sound.
+            </p>
+            <div class="artist-stats-row">
+              <div class="artist-stat">
+                <span class="artist-stat-label">Type</span>
+                <span class="artist-stat-value">Solo / Group</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Joined</span>
+                <span class="artist-stat-value">11.2024</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Group</span>
+                <span class="artist-stat-value">N.T.P.</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Label</span>
+                <span class="artist-stat-value">ALENDZI</span>
+              </div>
+            </div>
+            <div class="release-mini">
+              <img src="https://t2.genius.com/unsafe/883x0/https%3A%2F%2Fimages.genius.com%2Fa02eefbdd1671eded7172a8bbe7d8ab5.425x425x1.png" alt="Welcome to N.T.P.">
+              <div class="release-mini-info">
+                <div class="release-mini-title">Welcome to N.T.P. (as N.T.P.) <span class="tag tag-yt">YT</span></div>
+                <div class="release-mini-date">29.01.2025 — Mixtape</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="artist-card-footer">
+          <span>Formerly MC Lukas &nbsp;·&nbsp; ALENDZI Entertainment</span>
+          <span style="color:#555;">Tuzla, BiH</span>
+        </div>
+      </div>
+
+      <!-- ===== CRVENO STAKLO ===== -->
+      <div class="artist-card">
+        <div class="artist-card-header">
+          <div class="artist-num-block">04</div>
+          <div class="artist-title-block">
+            <div class="artist-name">Crveno Staklo</div>
+            <div class="artist-role">Guitarist</div>
+          </div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-avatar avatar-cs">
+            <span class="artist-avatar-letter">CS</span>
+          </div>
+          <div class="artist-details">
+            <p class="artist-bio">
+              Crveno Staklo is a guitarist who joined ALENDZI Entertainment in January 2026. The newest member of the roster, bringing a live instrument dimension to the label's sound.
+            </p>
+            <div class="artist-stats-row">
+              <div class="artist-stat">
+                <span class="artist-stat-label">Type</span>
+                <span class="artist-stat-value">Guitarist</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Joined</span>
+                <span class="artist-stat-value">01.2026</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Releases</span>
+                <span class="artist-stat-value">—</span>
+              </div>
+              <div class="artist-stat">
+                <span class="artist-stat-label">Label</span>
+                <span class="artist-stat-value">ALENDZI</span>
+              </div>
+            </div>
+            <div style="font-size:10px;color:#555;padding:6px 0;font-style:italic;">
+              No releases yet — watch this space.
+            </div>
+          </div>
+        </div>
+        <div class="artist-card-footer">
+          <span>Joined January 2026 &nbsp;·&nbsp; ALENDZI Entertainment</span>
+          <span style="color:#555;">Tuzla, BiH</span>
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+
+      <!-- QUICK ROSTER -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// QUICK JUMP</div>
+        <div class="sidebar-content">
+          <a href="#" class="sidebar-nav-link"><span>01. N.T.P.</span><span class="arr">▶</span></a>
+          <a href="#" class="sidebar-nav-link"><span>02. A.L.E.N</span><span class="arr">▶</span></a>
+          <a href="#" class="sidebar-nav-link"><span>03. Lukeri</span><span class="arr">▶</span></a>
+          <a href="#" class="sidebar-nav-link"><span>04. Crveno Staklo</span><span class="arr">▶</span></a>
+        </div>
+      </div>
+
+      <!-- ROSTER STATS -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// ROSTER STATS</div>
+        <div class="sidebar-content">
+          <div class="stat-row"><span>Total Artists</span><span>4</span></div>
+          <div class="stat-row"><span>Bands</span><span>1</span></div>
+          <div class="stat-row"><span>Solo Artists</span><span>2</span></div>
+          <div class="stat-row"><span>Guitarists</span><span>1</span></div>
+          <div class="stat-row"><span>Total Releases</span><span>12</span></div>
+          <div class="stat-row"><span>Newest Member</span><span>Crveno Staklo</span></div>
+          <div class="stat-row"><span>Label Since</span><span>11.08.2024</span></div>
+        </div>
+      </div>
+
+      <!-- FORMER MEMBERS -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// FORMER MEMBERS</div>
+        <div class="sidebar-content">
+          <div style="padding:5px 0;border-bottom:1px solid #222;">
+            <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#666;letter-spacing:0.5px;">Vertex</div>
+            <div style="font-size:9px;color:#444;margin-top:2px;">Producer — Left 07.09.2025</div>
+            <div style="font-size:9px;color:#444;">Formerly BeatzBlaze</div>
+          </div>
+          <div style="padding:5px 0;">
+            <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#666;letter-spacing:0.5px;">K99</div>
+            <div style="font-size:9px;color:#444;margin-top:2px;">Founding artist — Renamed to A.L.E.N</div>
+            <div style="font-size:9px;color:#444;">Still on roster as A.L.E.N</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LABEL INFO -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">// LABEL</div>
+        <div class="sidebar-content">
+          <div class="stat-row"><span>Name</span><span>ALENDZI Ent.</span></div>
+          <div class="stat-row"><span>Founded</span><span>11.08.2024</span></div>
+          <div class="stat-row"><span>Based</span><span>Tuzla, BiH</span></div>
+          <div class="stat-row"><span>Type</span><span>Independent</span></div>
+          <div style="margin-top:10px;">
+            <a href="mailto:alendzi@protonmail.com" style="font-size:10px;color:#c8a040;text-decoration:none;">alendzi@protonmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-content" style="text-align:center;padding:8px;">
+          <div style="font-size:9px;color:#555;letter-spacing:1px;line-height:2;">
+            ALENDZI ENTERTAINMENT<br>
+            TUZLA, BOSNA I HERCEGOVINA<br>
+            <span style="color:#444;">————————————————</span><br>
+            <span class="blink">★</span> INDEPENDENT. ALWAYS. <span class="blink">★</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /content-area -->
+
+  <footer>
+    <div style="margin-bottom:6px;">
+      ALENDZI ENTERTAINMENT &nbsp;|&nbsp; TUZLA, BOSNA I HERCEGOVINA &nbsp;|&nbsp; EST. 11.08.2024
+    </div>
+    <div>
+      <a href="mailto:alendzi@protonmail.com">alendzi@protonmail.com</a>
+      &nbsp;&nbsp;—&nbsp;&nbsp;
+      N.T.P. &nbsp;·&nbsp; A.L.E.N &nbsp;·&nbsp; LUKERI &nbsp;·&nbsp; CRVENO STAKLO
+    </div>
+    <div style="margin-top:6px;color:#333;">★ INDEPENDENT. ALWAYS. ★</div>
+  </footer>
+
+</div><!-- /main-wrapper -->
+
+</body>
+</html>
