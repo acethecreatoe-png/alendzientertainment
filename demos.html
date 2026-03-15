@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALENDZI Entertainment — Demo Submissions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #111111;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    color: #e8e0d0;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none; z-index: 999;
+  }
+
+  #main-wrapper { max-width: 960px; margin: 0 auto; }
+
+  /* HEADER */
+  #header { background: #1a1a1a; border-bottom: 4px solid #c8a040; border-top: 8px solid #c8a040; }
+  #header-top {
+    background: #c8a040; padding: 4px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: #111; font-weight: bold; letter-spacing: 1px;
+  }
+  #logo-area { display: flex; align-items: center; gap: 20px; padding: 16px 20px; }
+  #logo-box {
+    width: 90px; height: 90px; background: #c8a040; border: 3px solid #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  #logo-box span:first-child { font-family: 'Oswald', sans-serif; font-size: 26px; font-weight: 700; color: #111; line-height: 1; letter-spacing: -1px; }
+  #logo-box span:last-child { font-size: 8px; color: #111; text-align: center; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase; }
+  #header-text h1 { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700; color: #c8a040; letter-spacing: 3px; text-transform: uppercase; line-height: 1; }
+  #header-text p { font-size: 11px; color: #888; letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+  #header-text .tagline { font-size: 12px; color: #e8e0d0; margin-top: 6px; font-style: italic; }
+
+  /* TICKER */
+  #ticker-wrap { background: #c8a040; overflow: hidden; padding: 3px 0; border-top: 2px solid #a07820; }
+  #ticker {
+    display: inline-block; white-space: nowrap;
+    animation: ticker 28s linear infinite;
+    font-size: 11px; color: #111; font-weight: bold; letter-spacing: 1px;
+  }
+  @keyframes ticker { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+  /* NAV */
+  nav { background: #222; border-bottom: 3px solid #444; padding: 0 20px; display: flex; }
+  nav a {
+    display: inline-block; padding: 10px 18px; color: #e8e0d0; text-decoration: none;
+    font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
+    border-right: 1px solid #444; transition: background 0.1s, color 0.1s;
+  }
+  nav a:hover { background: #c8a040; color: #111; }
+  nav a.active { background: #c8a040; color: #111; }
+  nav a:first-child { border-left: 1px solid #444; }
+
+  /* LAYOUT */
+  #content-area { display: table; width: 100%; }
+  #main-content { display: table-cell; width: 660px; vertical-align: top; padding: 16px; border-right: 3px solid #333; }
+  #sidebar { display: table-cell; width: 290px; vertical-align: top; padding: 16px; background: #161616; }
+
+  /* PAGE TITLE */
+  #page-title-bar {
+    border: 2px solid #c8a040; background: #1a1a1a;
+    margin-bottom: 16px; padding: 10px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  #page-title-bar h2 { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; color: #c8a040; letter-spacing: 3px; text-transform: uppercase; }
+  #page-title-bar span { font-size: 10px; color: #666; letter-spacing: 1px; }
+
+  /* BOXES */
+  .box { border: 2px solid #444; margin-bottom: 14px; background: #1a1a1a; }
+  .box-header {
+    background: #2a2a2a; border-bottom: 2px solid #c8a040;
+    padding: 6px 10px;
+    font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #c8a040;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .box-header::before { content: '▶'; font-size: 9px; }
+  .box-content { padding: 14px 16px; }
+
+  /* INTRO BOX */
+  #intro-box {
+    border: 2px solid #c8a040;
+    background: #1a1a1a;
+    margin-bottom: 14px;
+  }
+  #intro-box .box-header {
+    background: #c8a040; color: #111; border-bottom: 2px solid #a07820;
+  }
+  #intro-box .box-header::before { color: #111; }
+
+  .intro-text {
+    font-size: 12px; color: #aaa; line-height: 2; padding: 14px 16px;
+  }
+
+  .intro-text strong { color: #e8e0d0; }
+
+  /* RULES LIST */
+  .rules-list { list-style: none; }
+
+  .rules-list li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #2a2a2a;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .rules-list li:last-child { border-bottom: none; }
+
+  .rule-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: #c8a040; flex-shrink: 0; width: 28px; line-height: 1.2;
+  }
+
+  .rule-text { font-size: 11px; color: #aaa; line-height: 1.8; }
+  .rule-text strong { color: #e8e0d0; font-size: 12px; display: block; margin-bottom: 2px; }
+
+  /* EMAIL CTA */
+  #email-cta {
+    border: 2px solid #c8a040;
+    background: #141414;
+    margin-bottom: 14px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  #email-cta p {
+    font-size: 11px; color: #888; margin-bottom: 10px; line-height: 1.8;
+  }
+
+  #email-cta .email-address {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: #c8a040; letter-spacing: 2px;
+    display: block; margin-bottom: 6px;
+  }
+
+  #email-cta .subject-line {
+    font-size: 11px; color: #666;
+    border: 1px dashed #333;
+    display: inline-block; padding: 4px 12px;
+    margin-bottom: 12px;
+  }
+
+  #email-cta .subject-line span { color: #c8a040; }
+
+  .send-btn {
+    display: inline-block;
+    background: #c8a040; color: #111;
+    text-decoration: none; font-family: 'Oswald', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 24px; border: 2px solid #a07820;
+    transition: background 0.1s;
+  }
+  .send-btn:hover { background: #a07820; }
+
+  /* NO DEMOS PLACEHOLDER */
+  #no-demos {
+    border: 2px dashed #2a2a2a;
+    background: #141414;
+    padding: 28px 16px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  #no-demos .nd-icon {
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px; color: #2a2a2a; margin-bottom: 8px; display: block;
+  }
+
+  #no-demos p {
+    font-size: 11px; color: #444; letter-spacing: 1px; text-transform: uppercase; line-height: 2;
+  }
+
+  /* SIDEBAR */
+  .sidebar-box { border: 2px solid #333; margin-bottom: 12px; background: #1a1a1a; }
+  .sidebar-header {
+    background: #222; border-bottom: 2px solid #555; padding: 5px 8px;
+    font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #c8a040;
+  }
+  .sidebar-content { padding: 10px; }
+
+  .stat-row { display: flex; justify-content: space-between; font-size: 10px; padding: 3px 0; border-bottom: 1px solid #222; color: #888; }
+  .stat-row span:last-child { color: #c8a040; font-weight: bold; }
+
+  .checklist-item {
+    display: flex; gap: 8px; padding: 5px 0;
+    border-bottom: 1px solid #1e1e1e;
+    font-size: 10px; color: #888; align-items: center;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check { color: #c8a040; font-size: 11px; flex-shrink: 0; }
+  .cross { color: #5a2a2a; font-size: 11px; flex-shrink: 0; }
+
+  footer { background: #111; border-top: 4px solid #c8a040; padding: 12px 20px; text-align: center; font-size: 10px; color: #555; letter-spacing: 1px; }
+  footer a { color: #c8a040; text-decoration: none; }
+
+  .blink { animation: blink 1.1s step-end infinite; color: #c8a040; font-weight: bold; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<div id="main-wrapper">
+
+  <div id="header">
+    <div id="header-top">
+      <span>ALENDZI ENTERTAINMENT © 2025</span>
+      <span>TUZLA, BOSNA I HERCEGOVINA</span>
+    </div>
+    <div id="logo-area">
+      <div id="logo-box"><span>ALZ</span><span>ENT.</span></div>
+      <div id="header-text">
+        <h1>ALENDZI Entertainment</h1>
+        <p>Independent Rap Label &nbsp;|&nbsp; Est. 2024 &nbsp;|&nbsp; Bosnia</p>
+        <p class="tagline">"Real music. No industry bullsh*t."</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="ticker-wrap">
+    <span id="ticker">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      ★ DEMO SUBMISSIONS OPEN — READ THE RULES BEFORE SENDING ★
+      &nbsp;&nbsp;&nbsp;
+      /// STANDARD QUALITY · MINIMUM 1:30 · ORIGINAL MATERIAL ONLY ///
+      &nbsp;&nbsp;&nbsp;
+      ★ SEND TO: alendzi@protonmail.com ★
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <nav>
+    <a href="/">HOME</a>
+    <a href="/roster">ROSTER</a>
+    <a href="/releases">RELEASES</a>
+    <a href="/news">NEWS</a>
+    <a href="/blog">BLOG</a>
+    <a href="/demos" class="active">DEMOS</a>
+    <a href="/contact">CONTACT</a>
+  </nav>
+
+  <div id="content-area">
+    <div id="main-content">
+
+      <div id="page-title-bar">
+        <h2>// DEMO SUBMISSIONS</h2>
+        <span>SUBMISSIONS OPEN</span>
+      </div>
+
+      <!-- INTRO -->
+      <div id="intro-box">
+        <div class="box-header">WANT TO GET ON?</div>
+        <div class="intro-text">
+          ALENDZI Entertainment is an independent rap label based in Tuzla, Bosnia and Herzegovina.
+          We are currently open to demo submissions. If you make music and you're serious about it,
+          send it through. We listen to <strong>everything</strong> that comes in.
+          <br><br>
+          No industry contacts required. No connections needed. Just send the music.
+          If it's right, we'll be in touch.
+        </div>
+      </div>
+
+      <!-- RULES -->
+      <div class="box">
+        <div class="box-header">SUBMISSION RULES</div>
+        <div class="box-content">
+          <ul class="rules-list">
+
+            <li>
+              <span class="rule-num">01</span>
+              <div class="rule-text">
+                <strong>Standard Audio Quality</strong>
+                No low-quality phone recordings. The audio should be clear enough to properly evaluate the music. It doesn't need to be studio-mastered — just audible.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">02</span>
+              <div class="rule-text">
+                <strong>Minimum Length: 1 Minute 30 Seconds</strong>
+                The demo must be at least 1:30 long. Short snippets or previews will not be considered. Send a full track.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">03</span>
+              <div class="rule-text">
+                <strong>Original Material Only</strong>
+                Do not send covers, remixes, or material you don't own. We only accept original work. No biting.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">04</span>
+              <div class="rule-text">
+                <strong>Email Submission</strong>
+                Send your demo to <strong style="color:#c8a040;">alendzi@protonmail.com</strong> with the subject line <strong style="color:#c8a040;">DEMO – [Your Name]</strong>. Include a link to the audio file or attach it directly.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">05</span>
+              <div class="rule-text">
+                <strong>Response Policy</strong>
+                We listen to everything. If we're interested, we will respond. If you don't hear back — it's not the right fit this time. Do not send follow-up emails asking for a verdict.
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <!-- EMAIL CTA -->
+      <div id="email-cta">
+        <p>Ready? Send your demo directly to the label.</p>
+        <span class="email-address">alendzi@protonmail.com</span>
+        <div class="subject-line">Subject: <span>DEMO – [Your Name]</span></div>
+        <br>
+        <a href="mailto:alendzi@protonmail.com?subject=DEMO – " class="send-btn">▶ SEND YOUR DEMO</a>
+      </div>
+
+      <!-- NO DEMOS PLACEHOLDER -->
+      <div class="box">
+        <div class="box-header">SUBMITTED DEMOS</div>
+        <div id="no-demos">
+          <span class="nd-icon">[ ]</span>
+          <p>No demos on file yet.<br>Be the first to submit.</p>
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">// QUICK RULES</div>
+        <div class="sidebar-content">
+          <div class="checklist-item"><span class="check">✔</span><span>Standard audio quality</span></div>
+          <div class="checklist-item"><span class="check">✔</span><span>Min. length 1:30</span></div>
+          <div class="checklist-item"><span class="check">✔</span><span>Original material</span></div>
+          <div class="checklist-item"><span class="check">✔</span><span>Email submission only</span></div>
+          <div class="checklist-item"><span class="cross">✘</span><span>No covers or remixes</span></div>
+          <div class="checklist-item"><span class="cross">✘</span><span>No follow-up emails</span></div>
+          <div class="checklist-item"><span class="cross">✘</span><span>No snippets under 1:30</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">// CONTACT</div>
+        <div class="sidebar-content">
+          <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Submit To</div>
+          <div style="font-size:12px;color:#c8a040;font-weight:bold;margin-bottom:8px;">alendzi@protonmail.com</div>
+          <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Subject Line</div>
+          <div style="font-size:11px;color:#888;border:1px dashed #333;padding:4px 8px;">DEMO – [Your Name]</div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">// SUBMISSION STATS</div>
+        <div class="sidebar-content">
+          <div class="stat-row"><span>Status</span><span>OPEN</span></div>
+          <div class="stat-row"><span>Demos Received</span><span>0</span></div>
+          <div class="stat-row"><span>Demos Accepted</span><span>0</span></div>
+          <div class="stat-row"><span>Response Rate</span><span>100%</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">// ABOUT THE LABEL</div>
+        <div class="sidebar-content">
+          <p style="font-size:10px;color:#888;line-height:1.8;">
+            Independent rap label from Tuzla, BiH. Founded 11.08.2024.
+            Home to N.T.P., A.L.E.N, Lukeri and Crveno Staklo.
+          </p>
+          <div style="margin-top:8px;">
+            <a href="/roster" style="font-size:10px;color:#c8a040;text-decoration:none;display:block;margin-bottom:3px;">→ View Roster</a>
+            <a href="/releases" style="font-size:10px;color:#c8a040;text-decoration:none;display:block;">→ View Releases</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-content" style="text-align:center;padding:8px;">
+          <div style="font-size:9px;color:#555;letter-spacing:1px;line-height:2;">
+            ALENDZI ENTERTAINMENT<br>
+            TUZLA, BOSNA I HERCEGOVINA<br>
+            <span style="color:#444;">————————————————</span><br>
+            <span class="blink">★</span> INDEPENDENT. ALWAYS. <span class="blink">★</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /content-area -->
+
+  <footer>
+    <div style="margin-bottom:6px;">ALENDZI ENTERTAINMENT &nbsp;|&nbsp; TUZLA, BOSNA I HERCEGOVINA &nbsp;|&nbsp; EST. 11.08.2024</div>
+    <div>
+      <a href="mailto:alendzi@protonmail.com">alendzi@protonmail.com</a>
+      &nbsp;&nbsp;—&nbsp;&nbsp;
+      N.T.P. &nbsp;·&nbsp; A.L.E.N &nbsp;·&nbsp; LUKERI &nbsp;·&nbsp; CRVENO STAKLO
+    </div>
+    <div style="margin-top:6px;color:#333;">★ INDEPENDENT. ALWAYS. ★</div>
+  </footer>
+
+</div><!-- /main-wrapper -->
+
+</body>
+</html>
